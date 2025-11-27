@@ -83,8 +83,9 @@ void processInput(GLFWwindow *window)
     }
     else
     {
+		bool tabPressedNow = glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS;
         //MENÚS
-        if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS)
+        if (tabPressedNow && !buttonPressedTab)
         {
             int menu = (int)typemenu;
             if (menu < 4)
@@ -103,6 +104,7 @@ void processInput(GLFWwindow *window)
                 cout << "\nMenu LIGHTING seleccionado..." << endl;
 
         }
+        buttonPressedTab = tabPressedNow;
         
         if(!trampa_move){
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
@@ -163,11 +165,12 @@ void actionKeys(GLFWwindow *window)
     {
        //ACCIONES DE USTEDES
     }
+
     else if (typemenu == OBJECTS)
     {
         //::::::::::::::MOVER OBJETOS:::::::::::::://
-
-        if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        bool QPressedNow = glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS;
+        if (QPressedNow&&!buttonPressedQ)
         {
             if (indexObject < models.size()-1)
             {
@@ -181,6 +184,7 @@ void actionKeys(GLFWwindow *window)
             system("cls");
             cout << "\nModelo seleccionado: " << models[indexObject].name << endl;
         }
+		buttonPressedQ = QPressedNow;
 
         //TRANSLACIÓN DEL MODELO X
         if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
@@ -371,7 +375,8 @@ void actionKeys(GLFWwindow *window)
         glm::vec3 transform(0);
         //::::::::::::::MOVER COLLISION BOX:::::::::::::://
         //SWITCH ENTRE COLLBOXES Y MODELS
-        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+        bool ZPressedNow = glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS;
+        if (ZPressedNow&&!buttonPressedZ)
         {
             isCollBoxModel = !isCollBoxModel;
             system("cls");
@@ -388,6 +393,7 @@ void actionKeys(GLFWwindow *window)
                 cout << "\nSe ha seleccionado el movimiento de collbox individuales..." << endl;
             }
         }
+		buttonPressedZ = ZPressedNow;
         if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
         {
             renderCollBox = !renderCollBox;

@@ -57,6 +57,7 @@ TransformObject transformObject = COLLBOX;
 //:::: VARIABLES GLOBALES :::://
 
 //:::: BANDERAS :::://
+
 // 
 //VENTANA
 const unsigned int SCR_WIDTH = 800;
@@ -70,6 +71,11 @@ bool isJoyStick = false;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+
+// Input state: previous frame key state for edge detection
+bool buttonPressedTab= false;
+bool buttonPressedQ = false;
+bool buttonPressedZ = false;
 
 //TIMING
 float deltaTime = 0.0f;

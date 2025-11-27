@@ -463,11 +463,20 @@ void drawModels(Shader *shader, glm::mat4 view, glm::mat4 projection)
     for (int i = 0; i < models.size(); i++)
     {
        //SI SE RECOGIO EL OBJETO
+        if (!models[i].isActive())
+            continue;
+
         shader->use();
 
         if (models[i].name == "cheese") {
 
            models[i].setAngles(glm::vec3(0, giro+=.500, 0));
+
+           //madre pa "eliminar"
+           if (intersect(models[i].collbox, camera.collbox)) {
+               models[i].setActive(false);
+               continue;
+           }
 
         }
 

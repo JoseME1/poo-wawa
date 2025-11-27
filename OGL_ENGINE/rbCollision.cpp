@@ -24,7 +24,8 @@ static inline rbReal OverlapAlongAxis( const rbVec3& axis, rbVec3 h[2], rbMtx3 R
 
 // [LANG en] [NOTE] In the context of GJK algorithm, this function is 'support map function', that returns 'support point' of a box.
 // [LANG ja] [NOTE] この関数は GJK アルゴリズムでいうところのサポート写像で、出力として立方体の支点 (support point) を返すもの。
-// Ref.: Gino van den Bergen, Collision Detection in Interactive 3D Enviroments, 4.3.4 Support Mappings (pp.130-139)
+// Ref.: Gino van den Bergen, Collision 
+// ion in Interactive 3D Enviroments, 4.3.4 Support Mappings (pp.130-139)
 static inline rbVec3 FurthestVertexAlongAxis( const rbVec3& axis, const rbVec3& h, const rbMtx3& R, const rbMtx3& RT, const rbVec3& P )
 {
     rbVec3 axis_boxlocal = (RT * axis).Normalize();

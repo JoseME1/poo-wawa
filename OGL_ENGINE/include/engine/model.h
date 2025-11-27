@@ -32,6 +32,7 @@ public:
     vector<Mesh> meshes;
     string directory;
     bool gammaCorrection;
+    
 
     vec3 getScale()
     {
@@ -84,10 +85,18 @@ public:
         collbox.setRotation(axisRotation);
     }
 
+    bool isActive() const {
+		return this->active;
+    }
+    void setActive(bool value) {
+        this->active = value;
+        
+    }
     /*  Functions   */
     // constructor, expects a filepath to a 3D model.
     Model()
     {
+		active = true;
     }
     Model(string name, string const &path, glm::vec3 _position, glm::vec3 _angles, float _angle, float _scale, bool withCollbox = true, bool gamma = false) : gammaCorrection(gamma)
     {
@@ -99,6 +108,7 @@ public:
         //NUEVO
         collbox = CollisionBox(this->position, glm::vec3(0.5), glm::vec4(0.0, 1.0, 0.0, 1.0), false, withCollbox);
         this->name = name;
+		active = true; //POR DEFECTO ESTAN ACTIVOS
         loadModel(path);
     }
     ~Model()
@@ -116,6 +126,8 @@ public:
     // draws the model, and thus all its meshes
     void Draw(Shader shader)
     {
+		if (!active) return; //NO DIBUJA SI EL OBJETO YA NO ESTA ACTIVO
+
         mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, position); // translate it down so it's at the center of the scene
         model = glm::rotate(model, glm::radians(angles.x), glm::vec3(1, 0, 0));
@@ -130,6 +142,7 @@ public:
     }
     void Draw(Shader shader, mat4 model)
     {
+        if (!active) return;
         shader.setMat4("model", model);
 
         for (unsigned int i = 0; i < meshes.size(); i++)
@@ -143,6 +156,8 @@ private:
     vec3 angles;
 
     float angle;
+
+	bool active;
 
     /*  Functions   */
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
